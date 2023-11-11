@@ -24,8 +24,8 @@ public class RecipesController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<RecipesEntity> getOneContainsTitle(@RequestParam String title) {
-        return this.recipesService.getOneContainsTitle(title);
+    public ResponseEntity<List<RecipesEntity>> getOneContainsTitle(@RequestParam String title) {
+        return this.recipesService.getManyContainsTitle(title);
     }
 
     @PostMapping
@@ -35,6 +35,11 @@ public class RecipesController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateOne(@PathVariable ObjectId id, @RequestBody RecipesEntity body){
+        return this.recipesService.updateOne(id, body);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patchOne(@PathVariable ObjectId id, @RequestBody RecipesEntity body){
         return this.recipesService.updateOne(id, body);
     }
 

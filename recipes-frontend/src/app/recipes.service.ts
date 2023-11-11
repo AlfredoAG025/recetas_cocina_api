@@ -11,4 +11,8 @@ export class RecipesService {
   getRecipes(): Observable<any> {
     return this.http.get(this.url, { headers: { Accept: 'application/json' } });
   }
+
+  getOneRecipeContainsTitle(title: String): Observable<any>{
+    return this.http.get(this.url + '/search?title=' + title , { headers: { Accept: 'application/json' } });
+  }
 }

@@ -31,18 +31,11 @@ public class RecipesService {
         }
     }
 
-    public ResponseEntity<RecipesEntity> getOneContainsTitle(@RequestParam String title) {
-        Optional<RecipesEntity> optRecipe = this.recipesRepository.findByTitleContaining(title);
-        RecipesEntity recipe;
+    public ResponseEntity<List<RecipesEntity>> getManyContainsTitle(@RequestParam String title) {
         try {
-            if (optRecipe.isPresent()) {
-                recipe = optRecipe.get();
-                return new ResponseEntity<RecipesEntity>(recipe, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<RecipesEntity>(new RecipesEntity(), HttpStatus.NOT_FOUND);
-            }
+            return new ResponseEntity<List<RecipesEntity>>(this.recipesRepository.findAllByTitleContainsIgnoreCase(title), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<RecipesEntity>(new RecipesEntity(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<List<RecipesEntity>>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
     }
 
